@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 from datetime import datetime, date
 from collections import UserList
 
@@ -173,6 +174,9 @@ class TodoList(UserList):
         :param str encoding: The encoding of the file to open
         :rtype: None
         """
+        if os.path.exists(file_path):
+            """ Make a backup before saving the file """
+            shutil.copy2(file_path, f"{file_path}.bak")
         stream = open(file_path, 'w', encoding=encoding)
         self.to_stream(stream)
     

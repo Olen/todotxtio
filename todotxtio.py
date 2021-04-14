@@ -143,6 +143,15 @@ class TodoList(UserList):
         return self.data
     
     
+    def to_markdown(self):
+        """Convert a list of :class:`todotxtio.Todo` objects to a markdown checklist.
+    
+        :param list todos: List of :class:`todotxtio.Todo` objects
+        :rtype: string
+        """
+        return "\n".join([todo.to_markdown() for todo in self.data])
+    
+    
     def to_dicts(self):
         """Convert a list of :class:`todotxtio.Todo` objects to a list of todo dict.
     

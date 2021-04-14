@@ -307,6 +307,21 @@ class Todo:
             'tags': self.tags,
         }
 
+    def to_markdown(self, priority=False, projects=False, contexts=False):
+        pre = '- [ ]'
+        pri = ''
+        pro = ''
+        con = ''
+        if self.completed:
+            pre = '- [x]'
+        if priority:
+            pri = f" **{self.priority}**"
+        if project:
+            pro = " (" + ", ".join(self.projects) + ")"
+        if context:
+            con = " (" + ", ".join(self.contexts) + ")"
+        return f"{pre} {self.text}{pri}{pro}{con}"
+
     def __setattr__(self, name, value):
         if name == 'completed':
             if not value:

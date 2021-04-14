@@ -325,9 +325,9 @@ class Todo:
             pre = '- [x]'
         if priority:
             pri = f" **{self.priority}**"
-        if project:
+        if projects:
             pro = " (" + ", ".join(self.projects) + ")"
-        if context:
+        if contexts:
             con = " (" + ", ".join(self.contexts) + ")"
         return f"{pre} {self.text}{pri}{pro}{con}"
 

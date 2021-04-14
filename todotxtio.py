@@ -143,13 +143,13 @@ class TodoList(UserList):
         return self.data
     
     
-    def to_markdown(self):
+    def to_markdown(self, priority=False, projects=False, contexts=False):
         """Convert a list of :class:`todotxtio.Todo` objects to a markdown checklist.
     
         :param list todos: List of :class:`todotxtio.Todo` objects
         :rtype: string
         """
-        return "\n".join([todo.to_markdown() for todo in self.data])
+        return "\n".join([todo.to_markdown(priority=priority, projects=projects, contexts=contexts) for todo in self.data])
     
     
     def to_dicts(self):

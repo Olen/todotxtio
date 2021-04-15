@@ -18,13 +18,17 @@ todolist = TodoList()
 
 todo = Todo(text="Something to do")
 todo.contexts.append('Home')
+
 print(todo.to_dict())
+# {'text': 'Something to do', 'completed': False, 'completion_date': None, 'priority': None, 'creation_date': None, 'projects': [], 'contexts': ['Home'], 'tags': {}}
+
 
 # Add the entry to the list
 
 todolist.append(todo)
 
 print(todolist)
+[(0, Something to do @Home)]
 
 # You can also add some magic functions to the lists
 

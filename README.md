@@ -16,36 +16,52 @@ todolist = TodoList()
 
 # Create and show a simple todo-entry
 
-todo = Todo(text="Something to do")
+todo = Todo(text="Ask for help", projects=['Todotxtio'])
 todo.contexts.append('Home')
 
 print(todo.to_dict())
-# {'text': 'Something to do', 'completed': False, 'completion_date': None, 'priority': None, 'creation_date': None, 'projects': [], 'contexts': ['Home'], 'tags': {}}
+# {'text': 'Ask for help', 'completed': False, 'completion_date': None, 'priority': None, 'creation_date': None, 'projects': ['Todotxtio'], 'contexts': ['Home'], 'tags': {}}
 
 
-# Add the entry to the list
+# Add some entries to the list
 
 todolist.append(todo)
 
+todo = Todo(text="Buy groceries", projects=['Shopping', 'Dinner'], contexts=['Away'])
+todolist.append(todo)
+
+todo = Todo(text="Drive to work", projects=['Work'], contexts=['Away'])
+todolist.append(todo)
+
+todo = Todo(text="Complete README", projects=['Todotxtio'], contexts=['Home'])
+todolist.append(todo)
+
+
+
 print(todolist)
-[(0, Something to do @Home)]
+[(0, Ask for help +Todotxtio @Home), (1, Buy groceries +Shopping +Dinner @Away), (2, Drive to work +Work @Away), (3, Complete README +Todotxtio @Home)]
+
 
 # You can also add some magic functions to the lists
+print(todolist.sorted)
+[(0, Ask for help +Todotxtio @Home), (1, Buy groceries +Shopping +Dinner @Away), (2, Complete README +Todotxtio @Home), (3, Drive to work +Work @Away)]
+
 
 print(todolist.to_markdown())
-# - [ ] Something to do
+# - [ ] Ask for help
+# - [ ] Complete README
+# - [ ] Buy groceries
+# - [ ] Drive to work
 
-print(todolist.to_markdown(contexts=True))
-# - [ ] Something to do (Home)
 
 # And also some inline search and filtering:
 
 print(todolist.contexts(['Home', 'Away']).incomplete.sorted.to_markdown(projects=True))
-# - [ ] Answer the phone (Work)
+# - [ ] Ask for help (Todotxtio)
 # - [ ] Buy groceries (Shopping, Dinner)
 # - [ ] Complete README (Todotxtio)
+# - [ ] Complete README (Todotxtio)
 # - [ ] Drive to work (Work)
-
 
 # Change an entry in the todolist:
 
@@ -53,6 +69,16 @@ searchresult = todolist.search(exact="Drive to work")
 index, todo = searchresult[0]
 todo.completed = True
 todolist.replace(todo, index)
+
+print(todolist.contexts(['Home', 'Away']).sorted.to_markdown(projects=True))
+# - [ ] Ask for help (Todotxtio)
+# - [ ] Buy groceries (Shopping, Dinner)
+# - [ ] Complete README (Todotxtio)
+# - [x] Drive to work (Work)
+
+
+print(todolist.contexts(['Home', 'Away']).completed.to_markdown(contexts=True, projects=True))
+- [x] Drive to work (Work) (Away)
 
 ```
 

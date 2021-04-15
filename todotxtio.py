@@ -43,6 +43,49 @@ class TodoList(UserList):
         if self.filename:
             self.to_file(self.filename)
 
+    @property
+    def sorted(self):
+        ret = TodoList()
+        for todo in sorted(self, key = lambda i: i.text):
+            ret.append(todo)
+        return ret
+
+    @property
+    def incomplete(self):
+        ret = TodoList()
+        for todo in self:
+            if not todo.completed:
+                ret.append(todo)
+        return ret
+
+    @property
+    def completed(self):
+        ret = TodoList()
+        for todo in self:
+            if todo.completed:
+                ret.append(todo)
+        return ret
+
+    def projects(self, projects):
+        if isinstance(projects, str):
+            projects = [projects]
+        ret = TodoList()
+        for todo in self:
+            for p in projects:
+                if p in todo.projects and todo not in ret:
+                    ret.append(todo)
+        return ret
+
+    def contexts(self, contexts):
+        if isinstance(contexts, str):
+            contexts = [contexts]
+        ret = TodoList()
+        for todo in self:
+            for c in contexts:
+                if c in todo.contexts and todo not in ret:
+                    ret.append(todo)
+        return ret
+
 
 
     def from_dicts(self, todos):
@@ -325,9 +368,9 @@ class Todo:
             pre = '- [x]'
         if priority:
             pri = f" **{self.priority}**"
-        if projects:
+        if projects and len(self.projects) > 0:
             pro = " (" + ", ".join(self.projects) + ")"
-        if contexts:
+        if contexts and len(self.contexts) > 0:
             con = " (" + ", ".join(self.contexts) + ")"
         return f"{pre} {self.text}{pri}{pro}{con}"
 

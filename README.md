@@ -42,10 +42,11 @@ print(todolist)
 [(0, Ask for help +Todotxtio @Home), (1, Buy groceries +Shopping +Dinner @Away), (2, Drive to work +Work @Away), (3, Complete README +Todotxtio @Home)]
 
 
-# You can also add some magic functions to the lists
+# You can also add some magic functions to the lists. Like sorting it alphabetically:
 print(todolist.sorted)
 [(0, Ask for help +Todotxtio @Home), (1, Buy groceries +Shopping +Dinner @Away), (2, Complete README +Todotxtio @Home), (3, Drive to work +Work @Away)]
 
+# Return it is as markdown...
 
 print(todolist.to_markdown())
 # - [ ] Ask for help
@@ -63,7 +64,7 @@ print(todolist.contexts(['Home', 'Away']).incomplete.sorted.to_markdown(projects
 # - [ ] Complete README (Todotxtio)
 # - [ ] Drive to work (Work)
 
-# Change an entry in the todolist:
+# You can change an entry in the todolist by replacing the index:
 
 searchresult = todolist.search(exact="Drive to work")
 index, todo = searchresult[0]
